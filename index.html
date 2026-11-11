@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>JOGO DA MEMÓRIA DOS PETS</title>
+  <meta name="description" content="Jogo da memória para crianças com bichinhos artesanais de papelão.">
+  <meta name="theme-color" content="#FFC531">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PETS">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/ui/icon-180.png">
+  <link rel="icon" href="assets/ui/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-theme="sol">
+
+  <!-- Ícones -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-paw" viewBox="0 0 100 100">
+      <ellipse cx="20" cy="46" rx="11" ry="15" transform="rotate(-18 20 46)"/>
+      <ellipse cx="39" cy="24" rx="11.5" ry="16" transform="rotate(-6 39 24)"/>
+      <ellipse cx="62" cy="24" rx="11.5" ry="16" transform="rotate(6 62 24)"/>
+      <ellipse cx="81" cy="46" rx="11" ry="15" transform="rotate(18 81 46)"/>
+      <path d="M50 46c-13 0-27 15-27 29 0 10 8 15 17 13 7-2 13-2 20 0 9 2 17-3 17-13 0-14-14-29-27-29z"/>
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 100 100"><path d="M30 16c-5-3-11 0-11 6v56c0 6 6 9 11 6l50-28c5-3 5-9 0-12z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 100 100"><path d="M46 13 8 47c-4 4-2 10 4 10h8v27c0 4 3 7 7 7h15V67h16v24h15c4 0 7-3 7-7V57h8c6 0 8-6 4-10L54 13c-2-2-6-2-8 0z"/></symbol>
+    <symbol id="i-sound-on" viewBox="0 0 100 100"><path d="M46 17 26 34H13c-3 0-5 2-5 5v22c0 3 2 5 5 5h13l20 17c3 3 8 1 8-4V21c0-5-5-7-8-4z"/><path d="M66 36c6 8 6 20 0 28M78 25c11 15 11 35 0 50" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/></symbol>
+    <symbol id="i-sound-off" viewBox="0 0 100 100"><path d="M46 17 26 34H13c-3 0-5 2-5 5v22c0 3 2 5 5 5h13l20 17c3 3 8 1 8-4V21c0-5-5-7-8-4z"/><path d="m66 38 24 24m0-24L66 62" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 100 100"><path d="M50 18a32 32 0 1 1-30 42" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"/><path d="M52 3 28 18c-2 1-2 3 0 4l24 15c2 1 5 0 5-3V6c0-3-3-4-5-3z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 100 100"><path d="M47 7c1-3 5-3 6 0l11 25 27 3c3 0 4 4 2 6L73 60l6 27c1 3-2 5-5 4L50 77 26 91c-3 1-6-1-5-4l6-27L7 41c-2-2-1-6 2-6l27-3z"/></symbol>
+  </svg>
+
+  <!-- ABERTURA -->
+  <main id="screen-title" class="screen title">
+    <svg class="hill" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-20 86C160 10 340 20 520 70s400 60 700-34v190H-20z"/>
+    </svg>
+    <div class="title__panel">
+      <h1 class="logo">
+        <span class="logo__top" data-letters>JOGO DA MEMÓRIA</span>
+        <span class="logo__main" data-letters>DOS PETS</span>
+      </h1>
+      <button id="btn-play" class="btn btn--play" type="button">
+        <svg aria-hidden="true"><use href="#i-play"/></svg>
+        JOGAR
+      </button>
+      <nav class="phase-picker" aria-label="FASES">
+        <button class="phase-chip phase-chip--sol" data-phase="0" type="button" aria-label="FASE 1">1</button>
+        <button class="phase-chip phase-chip--mar" data-phase="1" type="button" aria-label="FASE 2">2</button>
+        <button class="phase-chip phase-chip--lua" data-phase="2" type="button" aria-label="FASE 3">3</button>
+      </nav>
+    </div>
+  </main>
+
+  <!-- TABULEIRO -->
+  <main id="screen-game" class="screen game" hidden>
+    <header class="topbar">
+      <div id="phase-marks" class="phase-marks" aria-hidden="true">
+        <svg class="phase-mark"><use href="#i-paw"/></svg>
+        <svg class="phase-mark"><use href="#i-paw"/></svg>
+        <svg class="phase-mark"><use href="#i-paw"/></svg>
+      </div>
+      <div class="progress" aria-hidden="true"><span id="progress-fill" class="progress__fill"></span></div>
+      <!-- Fora do canto esquerdo, onde o Safari do iPad desenha o X da tela cheia -->
+      <button id="btn-restart" class="btn btn--icon" type="button" aria-label="REFAZER FASE">
+        <svg aria-hidden="true"><use href="#i-replay"/></svg>
+      </button>
+      <button id="btn-home" class="btn btn--icon" type="button" aria-label="INÍCIO">
+        <svg aria-hidden="true"><use href="#i-home"/></svg>
+      </button>
+      <span class="topbar__spacer"></span>
+    </header>
+    <div id="board" class="board"></div>
+  </main>
+
+  <!-- PAR ENCONTRADO -->
+  <div id="reveal" class="reveal" hidden>
+    <div class="reveal__rays" aria-hidden="true"></div>
+    <p id="reveal-name" class="label reveal__name" role="status"></p>
+  </div>
+
+  <!-- COMEMORAÇÃO -->
+  <main id="screen-finale" class="screen finale" hidden>
+    <div class="reveal__rays" aria-hidden="true"></div>
+    <div class="finale__head">
+      <div id="finale-stars" class="stars" aria-hidden="true">
+        <svg class="star"><use href="#i-star"/></svg>
+        <svg class="star"><use href="#i-star"/></svg>
+        <svg class="star"><use href="#i-star"/></svg>
+      </div>
+      <h2 id="finale-text" class="label"></h2>
+    </div>
+    <div class="finale__actions">
+      <button id="btn-finale-home" class="btn btn--icon btn--icon-lg" type="button" aria-label="INÍCIO">
+        <svg aria-hidden="true"><use href="#i-home"/></svg>
+      </button>
+      <button id="btn-finale-again" class="btn btn--icon btn--icon-lg" type="button" aria-label="REFAZER FASE">
+        <svg aria-hidden="true"><use href="#i-replay"/></svg>
+      </button>
+      <button id="btn-next" class="btn btn--round" type="button" aria-label="PRÓXIMA FASE">
+        <svg aria-hidden="true"><use href="#i-play"/></svg>
+      </button>
+      <button id="btn-replay" class="btn btn--round" type="button" aria-label="JOGAR DE NOVO" hidden>
+        <svg aria-hidden="true"><use href="#i-replay"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+
+  <button id="btn-sound" class="btn btn--icon btn--sound" type="button">
+    <svg aria-hidden="true"><use href="#i-sound-on"/></svg>
+  </button>
+
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/stage.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/fullscreen.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

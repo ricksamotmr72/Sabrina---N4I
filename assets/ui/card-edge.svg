@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- Borda de papelão ondulado, usada com border-image (fatia de 8px). -->
+  <rect width="48" height="48" fill="#6E4120"/>
+  <g fill="none" stroke="#E7C592" stroke-width="1.7" stroke-linejoin="round">
+    <path d="M0 7 3 1 6 7 9 1 12 7 15 1 18 7 21 1 24 7 27 1 30 7 33 1 36 7 39 1 42 7 45 1 48 7"/>
+    <path d="M0 47 3 41 6 47 9 41 12 47 15 41 18 47 21 41 24 47 27 41 30 47 33 41 36 47 39 41 42 47 45 41 48 47"/>
+    <path d="M1 0 7 3 1 6 7 9 1 12 7 15 1 18 7 21 1 24 7 27 1 30 7 33 1 36 7 39 1 42 7 45 1 48"/>
+    <path d="M41 0 47 3 41 6 47 9 41 12 47 15 41 18 47 21 41 24 47 27 41 30 47 33 41 36 47 39 41 42 47 45 41 48"/>
+  </g>
+</svg>
